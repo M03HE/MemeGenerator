@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Memegen</title>
+</head>
+
+<body onload="onInit()">
+
+    <header class="main-header flex flex-direction-row ">
+        
+        <img class="logo" onclick="onShowGallery()" src="img/LOGO.png">
+        <div class="screen" onclick="onToggleMenu()"></div>
+        <button class="btn-menu-toggle" onclick="onToggleMenu()">☰</button>
+        <div class="main-nav clean-list flex">
+            <li><a class="btn-gallery flex" href="#" data-trans="gallery" onclick="onShowGallery()">Gallery</a></li>
+            <li><a class="btn-memes flex" href="#" data-trans="memes" onclick="onOpenSavedMemes()">Memes</a></li>
+            <li><a class="btn-about flex" href="#" data-trans="about" onclick="onAboutModal()">About</a></li>
+        </div>
+        <select onchange="onSetLang(this.value)" class="subtitle">
+            <option value="en">English</option>
+            <option value="he">עברית</option>
+        </select>
+    </header>
+    
+    <main class="main-content">
+        <div class="about-modal" hidden></div>
+
+        <div class="main-page">
+            <div class="tags-menu flex align-center space-evenly">
+                <form class="add-book-form">
+                    <input name="meme-tag" type="txt" id="meme-tag" data-trans="meme-tag" class="search-tags"
+                        placeholder="Enter search keyword" oninput="onClickKeyword(this.value)" required />
+                </form>
+                <div class="keywords-container flex space-evenly"></div>
+            </div>
+            <div class="memes-container"></div>
+        </div>
+
+        <div class="img-editor" hidden>
+            <div class="canvas-container">
+                <canvas id="canvas" onclick="lineYPosClickChange(event)"
+                    ontouchmove="lineYPosClickChange(event)"></canvas>
+                <div class="editor-tools">
+                    <input name="meme-line" type="txt" class="input-txt" id="meme-line" oninput="editMemeTxt(this)"
+                        data-trans="add-line-placeholder" placeholder="Enter Text" required /> <br>
+                    <img src="img/ICONS/up-and-down-opposite-double-arrows-side-by-side.png" class="margin-tool"
+                        onclick="setUpAndDownIdxLine(),updateTxtChanges()">
+                    <img src="img/ICONS/add.png" class="margin-tool" onclick="pushLine()">
+                    <img src="img/ICONS/trash.png" class="margin-tool" onclick="addLine('null')">
+                    <img src="img/ICONS/save.png" class="margin-tool" onclick="onSaveMeme()"> <br>
+                    <img src="img/ICONS/increase font - icon.png" class="margin-tool"
+                        onclick="setBiggerFontSize(),updateTxtChanges()">
+                    <img src="img/ICONS/decrease font - icon.png" class="margin-tool"
+                        onclick="setSmallerFontSize(),updateTxtChanges()">
+                    <img src="img/ICONS/align-to-left.png" class="margin-tool"
+                        onclick="setLineLeft(),updateTxtChanges()">
+                    <img src="img/ICONS/center-text-alignment.png" class="margin-tool"
+                        onclick="setLineCenter(),updateTxtChanges()">
+                    <img src="img/ICONS/align-to-right.png" class="margin-tool"
+                        onclick="setLineRight(),updateTxtChanges()"> <br>
+                    <select onchange="setFontType(this.value),updateTxtChanges()" class="font-change margin-tool">
+                        <option value="impact">IMPACT</option>
+                        <option value="ariel">ARIEL</option>
+                    </select>
+                    <img src="img/ICONS/text stroke.png">
+                    <input class="btn-color" type="color" onchange="setStrokeColor(this.value),updateTxtChanges()"
+                        value="#000000">
+                    <img src="img/ICONS/paint-board-and-brush.png">
+                    <input class="btn-color" type="color" onchange="setTxtColor(this.value),updateTxtChanges()"
+                        value="#ffffff"><br> <br>
+                    <button><a href="#" data-trans='download' onclick="downloadCanvas(this)"
+                            download="my-meme">Download</a></button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <img class="logo-footer" src="img/LOGO.png"> <br>
+        <span data-trans="footer-txt"> All rights reserved to Moshe Dabush</span> <span class="date-year"></span> ©
+    </footer>
+
+    <script src="js/storage-service.js"></script>
+    <script src="js/i18n-service.js"></script>
+    <script src="js/util-service.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/main-controller.js"></script>
+
+</body>
+
+</html>
